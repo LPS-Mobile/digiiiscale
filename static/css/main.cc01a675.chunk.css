@@ -1,5 +1,17 @@
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue",sans-serif;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}code{font-family:source-code-pro,Menlo,Monaco,Consolas,"Courier New",monospace}#root,.App{background-color:"red"}.App{text-align:center}.App-logo{height:10vmin;pointer-events:none}@media (prefers-reduced-motion:no-preference){.App-logo{-webkit-animation:App-logo-spin 20s linear infinite;animation:App-logo-spin 20s linear infinite}}.App-header{background-color:#282c34;min-height:20vh;display:-webkit-flex;display:flex;-webkit-flex-direction:column;flex-direction:column;-webkit-align-items:center;align-items:center;-webkit-justify-content:center;justify-content:center;font-size:calc(10px + 2vmin);color:#fff}.App-link{color:#61dafb}@-webkit-keyframes App-logo-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{-webkit-transform:rotate(1turn);transform:rotate(1turn)}}@keyframes App-logo-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{-webkit-transform:rotate(1turn);transform:rotate(1turn)}}.Home{text-align:center;width:100%}.Home,.HomeTitle{-webkit-justify-content:center;justify-content:center}.HomeTitle{width:auto;margin:.5rem 0 0;background-color:red}.bmBurgerButton{position:"fixed";width:"36px";height:"30px";left:"36px";top:"36px"}.bmBurgerBars{background:"#373a47"}.bmBurgerBarsHover{background:"#a90000"}.bmCrossButton{height:"24px";width:"24px"}.bmCross{background:"#bdc3c7"}.bmMenuWrap{position:"fixed";height:"100%"}.bmMenu{background:"#373a47";padding:"2.5em 1.5em 0";font-size:"1.15em"}.bmMorphShape{fill:"#373a47"}.bmItemList{color:"#b8b7ad";padding:"0.8em"}.bmItem{display:"inline-block";width:"100%";color:"black";-webkit-text-decoration:"none";text-decoration:"none";font-size:"1.5rem";padding-bottom:"0.5rem";font-weight:"500"}.bmOverlay{background:"rgba(0; 0; 0; 0)"}
-
+#weightLabel {
+    width: 100%;
+    height: 72px;
+    position: absolute;
+    text-align: center;
+    font-size: 40px;
+    line-height: 75px;
+    padding-bottom: 8px;
+    bottom: 0px;
+    color: white;
+    font-family: 'Menlo', sans-serif, Helvetica;
+    background: rgb(64, 64, 64);
+}
 /*!
  * Bootstrap v4.6.0 (https://getbootstrap.com/)
  * Copyright 2011-2021 The Bootstrap Authors
