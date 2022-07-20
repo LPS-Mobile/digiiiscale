@@ -1,0 +1,21 @@
+.digiscale_container {
+  padding-top: 1rem;
+
+  .digiscale_btn {
+    margin-top: 1rem;
+    display: flex;
+    row-gap: 10px;
+    align-items: center;
+    flex-direction: column;
+
+    button {
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.5rem;
+      border-radius: 15px;
+      border: 1px solid white;
+      background: none;
+    }
+  }
+}

@@ -1,0 +1,21 @@
+.inp_label {
+  width: 100%;
+
+  input {
+    transition: all 1s;
+    width: 100%;
+    color: white;
+    background: none;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-radius: 0px;
+    text-align: center;
+    font-size: inherit;
+    font-family: inherit;
+    line-height: inherit;
+    border-image: initial;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid white;
+  }
+}
