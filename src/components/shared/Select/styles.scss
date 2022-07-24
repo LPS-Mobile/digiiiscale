@@ -1,0 +1,43 @@
+.select_container {
+  position: relative;
+  min-width: 150px;
+
+  .selected_text {
+    cursor: pointer;
+    padding: 5px 10px;
+    color: white;
+    border-radius: 10px;
+    background-color: green;
+  }
+
+  .select_box {
+    transition: all 0.5s;
+    cursor: pointer;
+    width: 100%;
+    position: absolute;
+    margin-top: 10px;
+    overflow: hidden;
+    border-radius: 10px;
+    background-color: white;
+
+    .select_item {
+      transition: all 0.5s;
+      padding: 5px;
+      margin: 5px 0;
+
+      &:hover {
+        transition: all 0.5s;
+        background-color: blue;
+
+        p {
+          transition: all 0.5s;
+          color: white;
+        }
+      }
+
+      p {
+        transition: all 0.5s;
+      }
+    }
+  }
+}

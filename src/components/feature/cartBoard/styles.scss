@@ -1,0 +1,41 @@
+.cart_board_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .cart_board_box {
+    width: 100%;
+
+    h2 {
+      color: white;
+      text-align: center;
+    }
+
+    .cart_board_detail {
+      div {
+        margin-top: 2rem;
+        display: flex;
+        column-gap: 50px;
+        align-items: center;
+        justify-content: space-around;
+      }
+
+      .cart_board_image {
+        width: 100px;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      .cart_board_text {
+        color: white;
+        display: flex;
+        font-weight: 500;
+        flex-direction: column;
+        align-items: baseline;
+      }
+    }
+  }
+}

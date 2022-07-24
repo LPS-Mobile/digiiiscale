@@ -1,14 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import CategoryProviderContext from "./hooks/useCategory";
+import ProductProviderContext from "./hooks/useSelectedProduct";
 
-import './index.scss';
+import "./index.scss";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <CategoryProviderContext>
+    <ProductProviderContext>
+      <App />
+    </ProductProviderContext>
+  </CategoryProviderContext>
 );
 
 // If you want to start measuring performance in your app, pass a function

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import Input from "../../shared/Input";
 import Button from "../../shared/Button";
 import TitleSubtitle from "../../shared/TitleSubtitle";
@@ -29,8 +30,10 @@ export default function DigiscaleForm() {
           <Input placeholder="Email Address" type="email" />
         </form>
         <div className="digiscale_btn">
-          <Button text="Sign Up" />
-          <Button text="Skip" color="red" />
+          <Button children="Sign Up" />
+          <Link to="/self-destruct">
+            <Button children="Skip" color="red" />
+          </Link>
         </div>
       </div>
     </div>

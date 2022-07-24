@@ -1,0 +1,23 @@
+.order_provider_container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 4rem;
+  background-color: rgb(64, 64, 64);
+
+  .hamburger_container {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  .card_box {
+    position: absolute;
+    right: 10px;
+  }
+}
+
+.ordering_box {
+  padding: 1rem;
+}

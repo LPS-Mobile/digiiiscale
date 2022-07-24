@@ -24,8 +24,8 @@ export default function Digiscale() {
         subTitle={digiscaleTexts.subTitle}
       />
       <div className="digiscale_btn">
-        <Button text="Yes" onClick={redirectPage} />
-        <Button text="No" />
+        <Button children="Yes" onClick={redirectPage} />
+        <Button children="No" />
       </div>
     </div>
   );
