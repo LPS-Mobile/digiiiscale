@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Button from "../Button";
+import close from "../../../public/icons/close.png";
 
 import "./styles.scss";
 
@@ -25,7 +25,7 @@ export default function Hamburger({ children }) {
           className="close_btn"
           onClick={() => setIsShowHamburger(!isShowHamburger)}
         >
-          <Button children="CLose" />
+          <img src={close} alt="" />
         </div>
         <div className="hamburger_items">{children}</div>
       </div>

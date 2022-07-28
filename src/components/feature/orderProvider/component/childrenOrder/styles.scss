@@ -1,5 +1,6 @@
 .children_order_box {
   display: flex;
+  row-gap: 20px;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-around;
@@ -19,6 +20,7 @@
   .children_order_text_box {
     width: 80%;
     display: flex;
+    row-gap: 20px;
     align-items: center;
     justify-content: center;
   }
@@ -36,5 +38,24 @@
     border: 1px solid green;
     border-radius: 10px;
     box-shadow: rgb(0 0 0 / 50%) 2px 2px 10px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .children_order_box {
+    flex-direction: column;
+
+    .details {
+      width: 100% !important;
+    }
+
+    .children_order_img {
+      width: 140px;
+    }
+
+    .children_order_text_box {
+      width: 100%;
+      flex-wrap: wrap;
+    }
   }
 }

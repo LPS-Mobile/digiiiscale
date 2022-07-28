@@ -1,6 +1,9 @@
 import { useState } from "react";
 import Button from "../../shared/Button";
 import { useProductContext } from "../../../hooks/useSelectedProduct";
+import trash from "../../../public/icons/trash.png";
+import minus from "../../../public/icons/minus.png";
+import plus from "../../../public/icons/plus.png";
 
 import "./styles.scss";
 
@@ -29,7 +32,9 @@ export default function CartBoard() {
 
     return result?.map((res, index) => (
       <div key={index}>
-        <Button onClick={() => setProduct([])}>Delet</Button>
+        <Button onClick={() => setProduct([])} className="cart_btn">
+          <img src={trash} alt="" />
+        </Button>
         <div>
           <div className="cart_board_image">
             <img src={product?.orderInfo.url} alt="" />
@@ -41,8 +46,18 @@ export default function CartBoard() {
           </div>
         </div>
         <div>
-          <Button onClick={() => handleAddOrRemoveCart("remove")}>-</Button>
-          <Button onClick={() => handleAddOrRemoveCart("add")}>+</Button>
+          <Button
+            className="cart_btn"
+            onClick={() => handleAddOrRemoveCart("remove")}
+          >
+            <img src={minus} alt="" />
+          </Button>
+          <Button
+            className="cart_btn"
+            onClick={() => handleAddOrRemoveCart("add")}
+          >
+            <img src={plus} alt="" />
+          </Button>
         </div>
       </div>
     ));
