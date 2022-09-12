@@ -2,17 +2,18 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Button from "../../shared/Button";
 import Hamburger from "../../shared/hamburger";
+import ScaleTouch3D from "../../shared/ScaleTouch3D";
 import { HAMBURGER_ITEMS } from "../../../constants/hamburger_items";
 
 import "./styles.scss";
 
 export default function SelfDestruct() {
-  const [kgGrams, setKgGrams] = useState("0 kg");
+  const [kgGramsIndex, setKgGramsIndex] = useState(1);
 
   const handleSetKgGrams = (e) => {
     const isChecked = e.target.checked;
-    if (isChecked) return setKgGrams("0 Grams");
-    return setKgGrams("0 kg");
+    if (isChecked) return setKgGramsIndex(0);
+    return setKgGramsIndex(1);
   };
 
   const createHamburgerItems = () => {
@@ -49,9 +50,8 @@ export default function SelfDestruct() {
           <Link to="/digiscale-form">Self Destruct</Link>
         </Button>
       </div>
-      <div className="kg_grams_box" />
-      <div className="kg_grams_btn">
-        <Button>{kgGrams}</Button>
+      <div className="kg_grams_box">
+        <ScaleTouch3D weightListIndex={kgGramsIndex} />
       </div>
     </div>
   );
