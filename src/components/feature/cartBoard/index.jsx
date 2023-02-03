@@ -1,7 +1,7 @@
+/* eslint-disable array-callback-return */
 import { useState } from "react";
 import Button from "../../shared/Button";
 import { useProductContext } from "../../../hooks/useSelectedProduct";
-import trash from "../../../public/icons/trash.png";
 import minus from "../../../public/icons/minus.png";
 import plus from "../../../public/icons/plus.png";
 
@@ -32,17 +32,17 @@ export default function CartBoard() {
 
     return result?.map((res, index) => (
       <div key={index}>
-        <Button onClick={() => setProduct([])} className="cart_btn">
-          <img src={trash} alt="" />
+        <Button onClick={() => setProduct([])} className="cart_btn close_btn">
+          X
         </Button>
         <div>
           <div className="cart_board_image">
             <img src={product?.orderInfo.url} alt="" />
           </div>
           <div className="cart_board_text">
+            <p style={{ color: "green" }}>{res.price}</p>
             <p>{res.text}</p>
             <p>Quantity: {cartProduct.length}</p>
-            <p>{res.price}</p>
           </div>
         </div>
         <div>
@@ -63,12 +63,15 @@ export default function CartBoard() {
     ));
   };
 
-  return (
+  return (<>
     <div className="cart_board_container">
+
       <div className="cart_board_box">
         <h2>My Cart</h2>
         <div className="cart_board_detail">{getProduct()}</div>
       </div>
+
     </div>
+  </>
   );
 }

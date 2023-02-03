@@ -1,0 +1,201 @@
+.digiscale_cart_data {
+
+
+    img {
+        height: 100%;
+        width: 100%;
+    }
+
+    .close_btn {
+        height: auto;
+        width: auto;
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: red;
+        padding: 0;
+        border: none;
+    }
+
+    .cart_btn {
+        border: none;
+        width: 36px;
+        height: 36px;
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+
+    .digiscale_header {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 0px;
+        min-height: 4rem;
+        padding-left: 12px;
+        padding-right: 12px;
+
+        .close_btn {
+            background-color: transparent;
+            border: none;
+            font-size: 40px;
+            font-weight: 100;
+            padding: 0;
+            color: red;
+        }
+
+        .btn_box {
+            width: auto;
+        }
+
+        button {
+            padding: 4px 12px;
+            border-radius: 1000px;
+            background-color: green;
+            border: 1px solid white;
+
+            a {
+                color: red;
+            }
+        }
+    }
+
+    .digiscale_cart_container {
+        padding-left: 12px;
+        padding-right: 12px;
+        padding-bottom: 40px;
+        border-bottom: 1px solid gray;
+
+        .cart_item {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 4px;
+            color: white;
+            font-size: 14px;
+            padding-bottom: 20px;
+
+            .remove_cart-btn {
+                width: 7%;
+            }
+
+            .cart_item_img {
+                width: 30%;
+            }
+
+            .cart_details {
+                width: 40%;
+
+                p {
+                    text-align: center;
+
+                    &:first-child {
+                        color: green;
+                    }
+                }
+            }
+
+            .cart_qty {
+                width: 5%;
+            }
+
+            .cart_btns {
+                width: 18%;
+                display: flex;
+            }
+        }
+    }
+
+
+}
+
+.order_price_detail_wrapper {
+    padding-left: 12px;
+    padding-right: 12px;
+
+    .order_price_detail {
+        color: white;
+        text-align: center;
+        padding-top: 40px;
+        padding-bottom: 40px;
+
+
+
+    }
+
+    .address_btn {
+        width: 100%;
+        display: block;
+        padding-bottom: 40px;
+
+        button {
+            padding: 12px;
+            border-radius: 100px;
+            border: none;
+            color: white;
+            font-size: 20px;
+            width: 100%;
+            background: linear-gradient(180deg, rgb(23, 23, 23) 3%, rgb(98, 98, 98) 100%)
+        }
+    }
+
+    .order_total {
+        font-size: 20px;
+        display: block;
+        text-align: center;
+        color: white;
+        padding-bottom: 40px;
+    }
+}
+
+
+.btn-green {
+    background-color: green !important;
+    padding: 12px !important;
+    color: white !important;
+    border-radius: 100px !important;
+    font-size: 16px !important;
+    border: none !important;
+    margin: auto !important;
+    display: block !important;
+    min-width: 150px !important;
+}
+
+.btn-red {
+    background-color: red !important;
+    padding: 12px !important;
+    color: white !important;
+    border-radius: 100px !important;
+    font-size: 16px !important;
+    border: none !important;
+    margin: auto !important;
+    display: block !important;
+    min-width: 150px !important;
+}
+
+
+.product_images {
+    display: flex;
+    max-width: 500px;
+    overflow-y: scroll;
+    padding: 20px 12px;
+
+    ul {
+        display: flex;
+        gap: 20px;
+
+        .product_image {
+            height: 80px;
+            width: 80px;
+
+            img {
+                height: 100%;
+                width: 100%;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+        }
+    }
+}

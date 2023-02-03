@@ -4,10 +4,11 @@
 
   .selected_text {
     cursor: pointer;
-    padding: 5px 10px;
+    padding: 10px;
     color: white;
-    border-radius: 10px;
-    background-color: green;
+    text-align: center;
+    border-radius: 1000px;
+    background: linear-gradient(180deg, rgb(23, 23, 23) 3%, rgb(98, 98, 98) 100%)
   }
 
   .select_box {
@@ -15,19 +16,22 @@
     cursor: pointer;
     width: 100%;
     position: absolute;
-    margin-top: 10px;
     overflow: hidden;
     border-radius: 10px;
-    background-color: white;
+    background: linear-gradient(180deg, rgb(23, 23, 23) 3%, rgb(98, 98, 98) 100%);
+    color: white;
+    text-align: center;
+    z-index: 2;
 
     .select_item {
       transition: all 0.5s;
       padding: 5px;
       margin: 5px 0;
+      border: 1px solid #00000000;
 
       &:hover {
         transition: all 0.5s;
-        background-color: blue;
+        border: 1px solid white;
 
         p {
           transition: all 0.5s;

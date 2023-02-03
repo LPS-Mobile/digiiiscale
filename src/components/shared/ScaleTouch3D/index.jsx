@@ -1,6 +1,6 @@
+/* eslint-disable no-unused-vars */
 import { useEffect } from "react";
 import { useState } from "react";
-import scaleSettings from "../../../public/icons/scaleSettings.png";
 
 import "./styles.scss";
 
@@ -36,7 +36,7 @@ export default function ScaleTouch3D({ weightListIndex }) {
     1.0, 0.03527396, 0.00220462, 0.00980665,
   ];
 
-  var touch;
+  var touch
   var touches;
   var touchCount = 0;
   function onTouchStart(e) {
@@ -70,7 +70,7 @@ export default function ScaleTouch3D({ weightListIndex }) {
     var raw3dtForce = getCurrent3DTForce();
     var current3dtForce = raw3dtForce - tareForce;
     var isMaxForce =
-      current3dtForce === touchCount - tareForce && touchCount != 0;
+      current3dtForce === touchCount - tareForce && touchCount !== 0;
     var currentGramsForce = getForceInGrams(current3dtForce);
     var displayedWeight = getDisplayedWeight(currentGramsForce);
 
@@ -202,8 +202,9 @@ export default function ScaleTouch3D({ weightListIndex }) {
 
   useEffect(() => {
     WeightUnitSelector();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [weightListIndex]);
-
+  console.log(selectedWeightLongIndex)
   return (
     <div id="view">
       {/* <div id="navigationBar">

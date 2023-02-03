@@ -1,8 +1,20 @@
 .digiscale_form_container {
   padding-top: 1rem;
 
+  .app_logo {
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: green;
+    border-radius: 1000px;
+    margin: auto;
+  }
+
+
   .form_box {
-    max-width: 185px;
+    max-width: 250px;
     margin: 1rem auto;
 
     form {

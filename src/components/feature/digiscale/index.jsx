@@ -1,16 +1,9 @@
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../shared/Button";
-import TitleSubtitle from "../../shared/TitleSubtitle";
 
 import "./styles.scss";
 
 export default function Digiscale() {
-  const [digiscaleTexts] = useState({
-    title: "Digiscale",
-    subTitle: "Are you over 21 years of age?",
-  });
-
   const navigate = useNavigate();
 
   const redirectPage = () => {
@@ -19,10 +12,12 @@ export default function Digiscale() {
 
   return (
     <div className="digiscale_container">
-      <TitleSubtitle
-        title={digiscaleTexts.title}
-        subTitle={digiscaleTexts.subTitle}
-      />
+      <p className="app_title">Digiscale</p>
+
+      <div className="app_logo">
+
+      </div>
+      <p className="age_title">I'm over 21</p>
       <div className="digiscale_btn">
         <Button children="Yes" onClick={redirectPage} />
         <Button children="No" />

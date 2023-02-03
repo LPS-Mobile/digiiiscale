@@ -8,7 +8,7 @@ export default function ChildrenOrderInfo({ setIsShowCartBoard }) {
 
   return (
     <div className="children_order_box">
-      <div className="children_order_image">
+      <div className="children_order_image" style={{ marginTop: 35 }}>
         <img src={product?.orderInfo.url} alt="" />
       </div>
       <div className="details">

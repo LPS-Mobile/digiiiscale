@@ -1,6 +1,4 @@
 import { useState } from "react";
-import close from "../../../public/icons/close.png";
-
 import "./styles.scss";
 
 export default function Hamburger({ children }) {
@@ -17,15 +15,13 @@ export default function Hamburger({ children }) {
         <span className="bottom_line" />
       </div>
       <div
-        className={`hamburger_item_box ${
-          isShowHamburger ? "hamburger_item_box_active" : ""
-        }`}
+        className={`hamburger_item_box ${isShowHamburger ? "hamburger_item_box_active" : ""
+          }`}
       >
         <div
           className="close_btn"
-          onClick={() => setIsShowHamburger(!isShowHamburger)}
-        >
-          <img src={close} alt="" />
+          onClick={() => setIsShowHamburger(!isShowHamburger)}>
+          X
         </div>
         <div className="hamburger_items">{children}</div>
       </div>
