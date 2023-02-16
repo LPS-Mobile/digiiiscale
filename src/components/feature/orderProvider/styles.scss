@@ -2,7 +2,9 @@
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  justify-content: space-between;
   min-height: 4rem;
   background-color: rgb(64, 64, 64);
 
@@ -13,10 +15,24 @@
   }
 
   .card_box {
-    position: absolute;
     right: 10px;
     width: 30px;
     height: 30px;
+
+    .cart_icon {
+      position: absolute;
+      right: -1px;
+      top: -1px;
+      background-color: green;
+      border-radius: 1000px;
+      font-size: 12px;
+      padding: 4px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 16px;
+      width: 16px;
+    }
 
     img {
       width: 100%;
@@ -27,4 +43,7 @@
 
 .ordering_box {
   padding: 1rem;
+  flex-direction: column;
+  display: flex;
+  row-gap: 20px;
 }

@@ -13,7 +13,7 @@ export default function SelectList({
   const [selectedIndex, setSelectedIndex] = useState();
 
   const handleSelectInLIst = (list, index) => {
-    const value = list.value;
+    const value = list.category;
     const valueIndex = index;
 
     setSelected(value);
@@ -27,7 +27,7 @@ export default function SelectList({
       <div
         className="select_box"
         // In style 40 is related `select_item` height margin and padding.
-        style={{ height: isOpen ? selectOptions.length * 48 : 0 }}
+        style={{ height: isOpen ? selectOptions.length * 44 : 0 }}
       >
         {selectOptions &&
           selectOptions.map((item, index) => {
@@ -39,7 +39,7 @@ export default function SelectList({
             } else {
               color = "gray"
             }
-            if (!item.value) {
+            if (!item.category) {
               return ""
             }
             return <div key={index}
@@ -56,7 +56,7 @@ export default function SelectList({
                     <circle cx="15.979" cy="15.977" r="6.117" />
                   </g>
                 </svg>}
-                {item.value}
+                {item.category}
               </p>
             </div>
           })}

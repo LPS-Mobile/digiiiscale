@@ -14,23 +14,23 @@ export default function ChildrenOrder({
     setProduct({ orderInfo, orderId });
   };
 
-  return childrenOrderOptions?.map((orderInfo, index) => (
-    <div
+  return childrenOrderOptions?.map((orderInfo, index) => {
+    console.log("orderInfo", orderInfo)
+
+    return (<div
       className="children_order_box"
       key={index}
-      onClick={() => setIncardCategoryProduct(orderInfo)}
-    >
+      onClick={() => setIncardCategoryProduct(orderInfo)}>
       <div className="children_order_img">
-        <img src={orderInfo.url} alt="" />
+        <img src={orderInfo.images} alt="" />
       </div>
       <div className="children_order_text_box">
-        {orderInfo?.childrenOrderData?.map((info, index) => (
-          <div className="children_order_text" key={index}>
-            <p>{info.price}</p>
-            <p>{info.text}</p>
-          </div>
-        ))}
+        <div className="children_order_text" key={index}>
+          <p>{orderInfo.price}</p>
+          <p>{orderInfo.name}</p>
+        </div>
       </div>
     </div>
-  ));
+    )
+  })
 }

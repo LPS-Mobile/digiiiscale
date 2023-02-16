@@ -225,8 +225,12 @@ export default function ScaleTouch3D({ weightListIndex }) {
       />
 
       <div id="weightLabelBox">
+        <div></div>
         <div id="weightLabel" onClick={tareWeight} onTouchStart={tareWeight}>
           {weightLabelText}
+        </div>
+        <div className="tare-btn">
+          <button>TARE</button>
         </div>
       </div>
 
@@ -256,6 +260,11 @@ export default function ScaleTouch3D({ weightListIndex }) {
             </option>
           ))}
         </select>
+      </div>
+      <div className="empty-boxes">
+        <div className="empty-box">Ad Space</div>
+        <div className="empty-box">Ad Space</div>
+        <div className="empty-box">Ad Space</div>
       </div>
     </div>
   );

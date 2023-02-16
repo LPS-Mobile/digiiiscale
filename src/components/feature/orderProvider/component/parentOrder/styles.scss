@@ -46,9 +46,11 @@
 }
 
 .product_box {
-  margin-top: 1rem;
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
   padding-top: 1rem;
   border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
 
   .select_container {
     width: 200px;

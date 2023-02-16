@@ -1,6 +1,5 @@
 .hamburger_container {
   .hamburger_line {
-    margin: 15px 15px;
     cursor: pointer;
     display: flex;
     row-gap: 5px;
@@ -18,13 +17,13 @@
 
   .hamburger_item_box {
     transition: all 1s;
-    position: absolute;
+    position: fixed;
     z-index: 11;
     top: 0;
     left: -1000px;
     width: 300px;
     height: 100vh;
-    padding: 2.5em 1.5em 0px;
+    padding: 2.5em 20px 0px;
     font-size: 1.15em;
     background: linear-gradient(90deg, rgb(185 195 199 / 92%) 2%, rgb(255, 255, 255) 100%);
 
@@ -55,6 +54,7 @@
         font-weight: 600;
         padding-top: 1.5rem;
         padding-bottom: 0.5rem;
+        text-align: center;
       }
     }
   }
