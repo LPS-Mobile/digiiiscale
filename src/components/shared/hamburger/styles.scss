@@ -1,7 +1,11 @@
 .hamburger_container {
+  width: 20%;
+  display: flex;
+  align-items: center;
+
   .hamburger_line {
     cursor: pointer;
-    display: flex;
+    display: inline-flex;
     row-gap: 5px;
     align-items: center;
     flex-direction: column;
@@ -15,6 +19,7 @@
     }
   }
 
+
   .hamburger_item_box {
     transition: all 1s;
     position: fixed;
@@ -23,7 +28,7 @@
     left: -1000px;
     width: 300px;
     height: 100vh;
-    padding: 2.5em 20px 0px;
+    padding: 2.5em 20px 20px;
     font-size: 1.15em;
     background: linear-gradient(90deg, rgb(185 195 199 / 92%) 2%, rgb(255, 255, 255) 100%);
 
@@ -45,14 +50,14 @@
 
     .hamburger_items {
       display: flex;
-      row-gap: 10px;
+      row-gap: 4px;
       flex-direction: column;
       justify-content: center;
 
       a {
         color: black;
         font-weight: 600;
-        padding-top: 1.5rem;
+        padding-top: 1rem;
         padding-bottom: 0.5rem;
         text-align: center;
       }

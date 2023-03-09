@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AppContext } from "../../AppContext";
+import AppLogo from "../../components/shared/AppLogo";
 import Button from "../../components/shared/Button";
 import Hamburger from "../../components/shared/hamburger";
 import ScaleTouch3D from "../../components/shared/ScaleTouch3D";
@@ -49,15 +50,23 @@ export default function SelfDestruct() {
         </Link>
         {profile && profile.isVerified ? <>
           <Link to="/digiscale-delivery">Digiscale Delivery</Link>
-          <Link to="/order">Request for Pickup</Link>
+          <Link to="/dispensaries">Request for Pickup</Link>
+          <Link to="/my-orders">My Orders</Link>
+          <Link to="/digiscale-partners">
+            Digiscale Partners
+          </Link>
         </> : <>
           <Link to="/apply">Digiscale Delivery</Link>
-          <Link to="/apply">Request for Pickup</Link></>}
-        <Link to="/digiscale-partners">
-          Digiscale Partners
-        </Link>
+          <Link to="/apply">Request for Pickup</Link>
+          <Link to="/apply">
+            Digiscale Partners
+          </Link>
+        </>
+        }
+
         <Link to="#" onClick={() => { logOut() }}>Log out</Link>
       </> :
+
         <>
           <p className="swtich_toggle_text">
             Kilograms
@@ -81,13 +90,7 @@ export default function SelfDestruct() {
         <Button>
           <Link to="/register">Self Destruct</Link>
         </Button>
-        <div className="">
-          <Button style={{ backgroundColor: "green", borderColor: "white" }}>
-            <Link to="/settings" className="logo-link" >
-              Logo
-            </Link>
-          </Button>
-        </div>
+        <AppLogo link="/settings" />
       </div>
       <div className="kg_grams_box">
         <ScaleTouch3D weightListIndex={kgGramsIndex} />

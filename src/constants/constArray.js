@@ -54,7 +54,7 @@ export const PARENT_ORDER_OPTIONS = [
     childrenOrder: {
       id: 2,
       url: brownies,
-      selectProductID: "nonFlower",
+      selectProductID: "nonflower",
       childrenOrderData: [
         {
           url: fragments,
@@ -73,13 +73,17 @@ export const PARENT_ORDER_OPTIONS = [
 
 
 export const ROLLING_OPTIONS = [
-  { selectCategoryID: "rollingGreens", value: "Rolling Greens", isDotHide: true },
-  { selectCategoryID: "hamiltonGoods", value: "Hamilton's Goods", isDotHide: true },
+  { id: "", name: "All Products", isDotHide: true },
+  { id: "rollingGreens", name: "Rolling Greens", isDotHide: true },
+  { id: "hamiltonGoods", name: "Hamilton's Goods", isDotHide: true },
 ];
 
 export const PRODUCTS = [
-  { selectProductID: "allProducts", value: "All Products", isDotHide: true },
-  { selectProductID: "flower", value: "Flower" },
-  { selectProductID: "nonFlower", value: "Non-Flower" },
-  { selectProductID: "miscellanies", value: "Miscellanies Products" },
+  { id: "", name: "All Products", isDotHide: true },
+  { id: "Flower", name: "Flower" },
+  { id: "NonFlower", name: "Non-Flower" },
+  { id: "MiscellaniesProduct", name: "Miscellanies Products" },
 ];
+
+
+export const STATES = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming']

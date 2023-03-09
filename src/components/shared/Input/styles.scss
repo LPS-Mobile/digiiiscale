@@ -8,9 +8,11 @@
     text-align: center;
     display: block;
     font-size: 16px;
+    font-weight: 500;
   }
 
   input,
+  select,
   .input {
     transition: all 1s;
     width: 100%;
@@ -32,12 +34,18 @@
   }
 }
 
-input:focus {
+select option {
+  color: black;
+}
+
+input:focus,
+select:focus {
   border: none;
   border-bottom: 1px solid #fff;
 }
 
-input:focus-visible {
+input:focus-visible,
+select:focus-visible {
   outline: none;
 }
 

@@ -1,14 +1,22 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios"
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
+import { AppContext } from "../AppContext"
+import AppLogo from "../components/shared/AppLogo"
 import Button from "../components/shared/Button"
 import { getAuthorization, URLS } from "../constants/constent"
 
 export default function ApplyCode(props) {
     const navigate = useNavigate()
+    const { setProfile } = useContext(AppContext)
     const [code, setcode] = useState("")
     const [sending, setSending] = useState(false)
     const [error, setError] = useState("")
+
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [window.location])
 
     const Submit = () => {
         if (!code) {
@@ -21,6 +29,7 @@ export default function ApplyCode(props) {
             setSending(false)
             const data = res.data
             if (res.status === 200) {
+                setProfile(res.data)
                 navigate("/payment-info")
             } else {
                 setError(`${data.message}`)
@@ -32,18 +41,15 @@ export default function ApplyCode(props) {
             setSending(false)
         })
     }
+
     return (
         <section className="digiscale_confirmation">
             <div className="digiscale_header">
                 <Button className="close_btn" style={{ color: "green" }}><Link to="/self-destruct" style={{ color: "green" }}>◁</Link></Button>
-                <Button style={{ backgroundColor: "red" }}>
+                <Button style={{ backgroundColor: "green" }}>
                     Apply Code
                 </Button>
-                <Button>
-                    <Link to="/self-destruct" className="logo-link">
-                        Logo
-                    </Link>
-                </Button>
+                <AppLogo />
             </div>
             <div className="digiscale_confirmation_container">
                 <div className="confirmation_heading">

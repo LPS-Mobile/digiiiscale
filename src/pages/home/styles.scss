@@ -1,0 +1,63 @@
+.digiscale_container {
+    padding-top: 1rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .app_title {
+        font-size: 32px;
+        color: green;
+        padding-bottom: 40px;
+        font-weight: 600;
+    }
+
+    .age_title {
+        font-size: 18px;
+        color: green;
+        padding-top: 40px;
+    }
+
+    .app_logo {
+        height: 80px;
+        width: 80px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: green;
+        border-radius: 1000px;
+    }
+
+    .digiscale_btn {
+        margin-top: 1rem;
+        display: flex;
+        gap: 20px;
+        align-items: center;
+
+        button {
+            color: green;
+            font-weight: 600;
+            font-size: 1rem;
+            padding: 0.2rem;
+            border-radius: 4px;
+            border: 1px solid white;
+            background: none;
+            min-width: 80px;
+        }
+    }
+}
+
+.digiscale_form_btn {
+    gap: 20px;
+    display: flex;
+    justify-content: center;
+
+    button {
+        background-color: white;
+        min-width: 100px;
+        border-radius: 4px;
+        padding: 8px 12px;
+        width: 50%;
+    }
+}

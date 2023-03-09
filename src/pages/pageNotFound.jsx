@@ -8,9 +8,9 @@ export default function PageNotFound() {
             Oops! Page Not Found.
         </div>
         <div style={{ textAlign: "center", marginTop: 20 }}>
-            <Button className="btn_white">
-                <Link to="/self-destruct" style={{ color: "green" }}>Home</Link>
-            </Button>
+            <Link to="/self-destruct" style={{ color: "green" }}> <Button className="btn_white">
+                Home
+            </Button></Link>
         </div>
     </section>
 }

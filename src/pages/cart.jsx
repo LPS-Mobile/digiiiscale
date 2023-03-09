@@ -1,47 +1,82 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios"
-import { useContext, useState } from "react"
-import { Link } from "react-router-dom"
+import { useContext, useEffect, useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import { getCartAction } from "../actions/actions"
 import { AppContext } from "../AppContext"
 import ProductImages from "../components/feature/ProductImages"
 import DriverTip from "../components/feature/thanks/DriverTip"
-import ThankYou from "../components/feature/thanks/DriverTip"
+import ThankYou from "../components/feature/thanks/ThankYou"
 import TipRate from "../components/feature/thanks/TipRate"
+import AppLogo from "../components/shared/AppLogo"
 import Button from "../components/shared/Button"
+import Loading from "../components/shared/Loading"
 import { getAuthorization, URLS } from "../constants/constent"
+import { sumArray } from "../constants/helper"
 import minus from "../public/icons/minus.png";
 import plus from "../public/icons/plus.png";
 
 export default function Cart() {
-    const { cart, setCart, profile } = useContext(AppContext)
+    const { profile, cart, setCart } = useContext(AppContext)
+    const navigate = useNavigate()
     const [step, setStep] = useState(1)
     const [error, setError] = useState("")
     const [sending, setSending] = useState(false)
     const [orderId, setOrderId] = useState("")
+    const [orderAmount, setOrderAmount] = useState(0)
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        if (profile && !profile.isVerified) {
+            navigate("/apply/code")
+        }
+    }, [profile])
+    useEffect(() => {
+        getCart()
+    }, [])
+
+    const getCart = () => {
+        setLoading(true)
+        getCartAction(({ data, error }) => {
+            if (error) {
+            } else {
+                setLoading(false)
+                setCart(data);
+
+            }
+        });
+    }
+    let products = cart?.map(e => {
+        return { productName: e.product.name, productId: e.product._id, weight: e.weight, quantity: e.quantity, type: e.product.type, category: e.product.category, price: e.product.price }
+    });
+    let p = cart?.map((e) => { return e?.product?.price * (e.quantity || 1) })
+    let totalPrice = sumArray(p)
+    let finalAmount = (totalPrice + 5 + 8)
+
     const Submit = () => {
-        const values = { cart }
-        values.userId = profile._id
-        values.dispensaryId = "63e4bae785494c41f05bba46"
+        const values = { products }
+        values.user = profile._id
         values.name = "name"
-        values.quantity = 2
+        values.dispensary = cart[0].dispensary
+        values.status = "new"
+        values.price = finalAmount
         setSending(true)
         axios.post(`${URLS.API}orders`, values, getAuthorization).then((res) => {
             setSending(false)
             const data = res.data
             if (res.status === 201) {
-                const item = {}
-                item.userId = profile._id
-                item.products = []
                 setSending(true)
-                axios.put(URLS.API + 'cart', item, getAuthorization).then((res) => {
+                axios.delete(URLS.API + 'cart', getAuthorization).then((res) => {
                     if (res.status === 200) {
+                        setCart([])
                     } else {
                         setError("Try Again")
                     }
                 }).catch((e) => {
                     setError(e?.response?.data?.message || e?.response?.data?.error)
-                    setSending(false)
                 })
                 setOrderId(data._id)
+                setOrderAmount(data.price)
                 setError('');
                 setStep(2)
                 setCart([])
@@ -60,80 +95,94 @@ export default function Cart() {
     return (<>
         {step === 1 && <section className="digiscale_cart_data" error={error}>
             <div className="digiscale_header">
-                <Button className="close_btn" style={{ color: "green", fontSize: 30 }}><Link to="/order" style={{ color: "green" }}>◁</Link></Button>
+                <Button className="close_btn" style={{ color: "green", fontSize: 30 }}><Link to="/dispensaries" style={{ color: "green" }}>◁</Link></Button>
                 <Button >
-                    Self Destruct
+                    Cart
                 </Button>
-                <Button>icon</Button>
-                <Button>
-                    <Link to="/self-destruct" className="logo-link">
-                        Logo
-                    </Link>
-                </Button>
+                <AppLogo />
             </div>
 
             <div className="digiscale_cart_container">
                 <div className="cart_wrapper">
-                    {cart && cart.length > 0 ? (cart.map((e, i) => {
-                        return <CartItem e={e._doc} i={i} setCart={setCart} />
-                    })) : <h4 style={{ textAlign: "center" }} className="text-white">No Item in your cart</h4>}
+                    {loading ? <Loading /> : (cart && cart.length > 0 ? (cart.map((e, i) => {
+                        return <CartItem key={i} e={e} i={i} setCart={(arr) => {
+                            setCart(arr)
+                        }}
+                            cart={cart} getCart={getCart} />
+                    })) : <h4 style={{ textAlign: "center" }} className="text-white">No Item in your cart</h4>)}
                 </div>
             </div>
             {cart && cart.length > 0 && <div className="order_price_detail_wrapper">
                 <div className="order_price_detail">
-                    <p>Item #: $50.00</p>
-                    <p>Tax: $5.00</p>
-                    <p>Delivery Fee: 8.00</p>
+                    <p>Item #: {totalPrice}$</p>
+                    <p>Tax: 5.00$</p>
+                    <p>Delivery Fee: 8.00$</p>
                 </div>
 
                 <div className="address_btn">
                     <button className="btn">Street Address</button>
                 </div>
-                <div className="order_total">Total: $63.00</div>
+                <div className="order_total">Total: {finalAmount}$</div>
                 <button className="btn-green" onClick={() => { Submit() }} disabled={sending}>{sending ? "Placing Order" : "PLACE ORDER"}</button>
             </div>}
             <ProductImages />
         </section>}
         {step === 2 && <DriverTip step={step} setStep={setStep} />}
-        {step === 3 && <TipRate orderId={orderId} step={step} setStep={setStep} />}
+        {step === 3 && <TipRate orderId={orderId} step={step} setStep={setStep} orderAmount={orderAmount} />}
         {step === 4 && <ThankYou step={step} setStep={setStep} />}
     </>)
 }
 
+const CartItem = ({ e, i, getCart, cart, setCart }) => {
+    const product = e.product
+    const [sending, setSending] = useState(false)
 
-const CartItem = ({ e, i, setCart }) => {
-    const [qty, setQty] = useState(1)
+    const removeFromCart = () => {
+        setSending(true)
+        axios.delete(URLS.API + 'cart/' + e._id, getAuthorization).then((res) => {
+            if (res.status === 200) {
+                getCart()
+            } else {
+            }
+            setSending(false)
+        }).catch((e) => {
+            console.log(e?.response?.data?.message || e?.response?.data?.error)
+            setSending(false)
+        })
+    }
+
+
     return <div className="cart_item" key={i}>
-        <div className="remove_cart-btn"
-            onClick={() => {
-                setCart(arr => arr.filter(er => er._doc.name !== e.name))
-            }}>
-            <Button className="close_btn">X</Button>
+        <div className="remove_cart-btn">
+            <Button className="close_btn" disabled={sending} onClick={() => { removeFromCart() }}>X</Button>
         </div>
         <div className="cart_item_img">
-            <img src={e?.images} alt="" />
+            <img src={product?.images[0]} alt="" />
         </div>
         <div className="cart_details">
-            <p>{e.price}/-</p>
-            <p>{e.name}</p>
-        </div>
-        <div className="cart_qty">
-            {e.weight}
+            <p>{product.price * e.quantity}$</p>
+            <p>{product.name}</p>
         </div>
 
         <div className="cart_btns">
+            <div className="cart_qty">
+                {e.quantity}
+            </div>
             <Button className="cart_btn"
                 onClick={() => {
-                    if (qty !== 1) {
-                        setQty(qty - 1)
+                    if (e.quantity !== 1) {
+                        e.quantity = e.quantity - 1
+                        cart[i] = e
+                        setCart(cart)
                     }
                 }}>
                 <img src={minus} alt="" />
             </Button>
-            {qty}
             <Button className="cart_btn"
                 onClick={() => {
-                    setQty(qty + 1)
+                    e.quantity = e.quantity + 1
+                    cart[i] = e
+                    setCart(cart)
                 }}>
                 <img src={plus} alt="" />
             </Button>

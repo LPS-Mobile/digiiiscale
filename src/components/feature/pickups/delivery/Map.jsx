@@ -1,8 +1,21 @@
-// import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 
-export default function Map() {
+import { useEffect } from "react";
+import L from "leaflet";
+import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
+import "leaflet-routing-machine";
+import { useMap } from "react-leaflet";
+
+export default function Map(props) {
+    const { route, types = true, height_ } = props
+    const MARKUPS = [[51.505, -0.09], [51.505, -0.02], [51.505, -0.12], [51.520, -0.10], [51.520, -0.05],
+    [51.540, -0.05], [51.540, -0.09], [51.540, -0.02], [51.540, -0.12], [51.480, -0.10], [51.480, -0.05],
+    [51.450, -0.09], [51.450, -0.02], [51.450, -0.12], [51.580, -0.10], [51.580, -0.05],
+    [51.580, -0.05], [51.540, -0.09], [51.600, -0.02], [51.600, -0.12], [51.440, -0.10], [51.440, -0.05],
+    [51.490, 0.1]
+    ]
     return (<>
-        <div className="product_types">
+        {types && <div className="product_types">
             <ul>
                 <li><span>
                     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" id="Capa_1" viewBox="0 0 31.955 31.955">
@@ -36,21 +49,24 @@ export default function Map() {
                 </span>
                     Miscellianies Products</li>
             </ul>
-        </div>
+        </div>}
 
 
-        <div className="location_map">
-            {/* <MapContainer className="markup-map" center={[51.505, -0.09]} zoom={12} scrollWheelZoom={false}>
+        <div className="location_map" style={{ height: height_ }}>
+            <MapContainer className="markup-map" center={[51.505, -0.09]} zoom={11} scrollWheelZoom={false}>
                 <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    attribution='&copy; <a hr="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
-                <Marker position={[51.505, -0.09]}>
-                    <Popup>
-                        A pretty CSS3 popup. <br /> Easily customizable.
-                    </Popup>
-                </Marker>
-            </MapContainer> */}
+                {route ? <Routing /> :
+                    (MARKUPS.map((e, i) => {
+                        return <Marker position={e} key={i}>
+                            <Popup>
+                                A pretty CSS3 popup. <br /> Easily customizable.
+                            </Popup>
+                        </Marker>
+                    }))}
+            </MapContainer>
         </div>
 
         {/* <p className="map_bottom_title">
@@ -58,4 +74,25 @@ export default function Map() {
         </p> */}
     </>
     )
+}
+
+L.Marker.prototype.options.icon = L.icon({
+    iconUrl: "https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png"
+});
+
+function Routing() {
+    const map = useMap();
+
+    useEffect(() => {
+        if (!map) return;
+
+        const routingControl = L.Routing.control({
+            waypoints: [L.latLng(57.74, 11.94), L.latLng(57.6792, 11.949)],
+            routeWhileDragging: true
+        }).addTo(map);
+
+        return () => map.removeControl(routingControl);
+    }, [map]);
+
+    return null;
 }

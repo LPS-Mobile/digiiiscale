@@ -10,15 +10,10 @@ export default function SelectList({
 }) {
   const [selected, setSelected] = useState();
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState();
 
-  const handleSelectInLIst = (list, index) => {
-    const value = list.category;
-    const valueIndex = index;
-
-    setSelected(value);
-    setSelectedList(list);
-    setSelectedIndex(valueIndex);
+  const handleSelectInLIst = (list) => {
+    setSelected(list.name);
+    setSelectedList(list.id);
   };
 
   return (
@@ -32,23 +27,23 @@ export default function SelectList({
         {selectOptions &&
           selectOptions.map((item, index) => {
             let color = ""
-            if (item.selectProductID === "flower") {
+            if (item.id === "Flower") {
               color = "green"
-            } else if (item.selectProductID === "nonFlower") {
+            } else if (item.id === "NonFlower") {
               color = "#e4bd01"
             } else {
               color = "gray"
             }
-            if (!item.category) {
+            if (!item.name) {
               return ""
             }
             return <div key={index}
               style={{
-                border: selectedIndex === index ? "1px solid #fff" : "1px solid transparent",
+                border: SelectList === index ? "1px solid #fff" : "1px solid transparent",
                 borderRadius: 8
               }} className="select_item"
               onClick={() => handleSelectInLIst(item, index)}>
-              <p style={{ color: selectedIndex === index ? "white" : "", display: "flex", alignItems: "center", justifyContent: "center", gap: 4 }}>
+              <p style={{ color: SelectList === index ? "white" : "", display: "flex", alignItems: "center", justifyContent: "center", gap: 4 }}>
                 {item.isDotHide ? "" : <svg fill={color} height={13} width={13} xmlns="http://www.w3.org/2000/svg" version="1.1" id="Capa_1" viewBox="0 0 31.955 31.955">
                   <g>
                     <path d="M27.25,4.655C20.996-1.571,10.88-1.546,4.656,4.706C-1.571,10.96-1.548,21.076,4.705,27.3   c6.256,6.226,16.374,6.203,22.597-0.051C33.526,20.995,33.505,10.878,27.25,4.655z" />
@@ -56,7 +51,7 @@ export default function SelectList({
                     <circle cx="15.979" cy="15.977" r="6.117" />
                   </g>
                 </svg>}
-                {item.category}
+                {item.name}
               </p>
             </div>
           })}

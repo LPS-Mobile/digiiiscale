@@ -1,9 +1,13 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../AppContext";
+import AppLogo from "../components/shared/AppLogo";
 import Button from "../components/shared/Button";
 import Input from "../components/shared/Input";
+import SelectBox from "../components/shared/SelectBox";
+import { STATES } from "../constants/constArray";
 import { getAuthorization, URLS } from "../constants/constent";
 
 export default function PaymentInfo(props) {
@@ -14,19 +18,21 @@ export default function PaymentInfo(props) {
     const [address, setAddress] = useState("")
     const [city, setCity] = useState("")
     const [state, setState] = useState("")
-    const [country, setCountry] = useState("")
+    const [country, setCountry] = useState("USA")
     const [zip, setZipCode] = useState("")
     const [error, setError] = useState("")
     const [sending, setSending] = useState(false)
 
     useEffect(() => {
-        if (profile) {
+        if (profile && !profile.isVerified) {
+            navigate("/apply/code")
+        } else if (profile && profile.isVerified) {
             setFirstName(profile.firstName)
             setLastName(profile.lastName)
             setAddress(profile.street)
             setCity(profile.city)
             setState(profile.state)
-            setCountry(profile.country)
+            setCountry("USA")
             setZipCode(profile.zip)
         }
     }, [profile])
@@ -87,14 +93,10 @@ export default function PaymentInfo(props) {
         <section className="digiscale_confirmation">
             <div className="digiscale_header">
                 <Button className="close_btn" style={{ color: "green" }}><Link to="/self-destruct" style={{ color: "green" }}>◁</Link></Button>
-                <Button style={{ backgroundColor: "red" }}>
+                <Button style={{ backgroundColor: "green" }}>
                     Payment Info
                 </Button>
-                <Button>
-                    <Link to="/self-destruct" className="logo-link">
-                        Logo
-                    </Link>
-                </Button>
+                <AppLogo />
             </div>
             <div className="digiscale_confirmation_container">
                 <div className="digiscale_form">
@@ -123,16 +125,22 @@ export default function PaymentInfo(props) {
                             setCity(e.target.value)
                             setError("")
                         }} />
-                    <Input label="State" value={state}
+                    <SelectBox label="State" value={state}
                         onChange={(e) => {
                             setState(e.target.value)
                             setError("")
-                        }} />
-                    <Input label="Country" value={country}
-                        onChange={(e) => {
-                            setCountry(e.target.value)
-                            setError("")
-                        }} />
+                        }}>
+                        <option value="">Select State</option>
+                        {STATES.map((e, i) => {
+                            return <option value={e} key={i}>{e}</option>
+                        })}
+                    </SelectBox>
+                    <Input label="Country" value={country} disabled={true}
+                    // onChange={(e) => {
+                    //     setCountry(e.target.value)
+                    //     setError("")
+                    // }} 
+                    />
                     <Input label="Zip Code" value={zip}
                         type="number"
                         onChange={(e) => {

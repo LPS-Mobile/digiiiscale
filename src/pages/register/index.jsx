@@ -5,6 +5,9 @@ import "./styles.scss";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { URLS } from "../../constants/constent";
+import logo from "../../public/images/logo.png"
+import SelectBox from "../../components/shared/SelectBox";
+import { STATES } from "../../constants/constArray";
 
 export default function DigiscaleForm() {
   const navigate = useNavigate()
@@ -13,7 +16,6 @@ export default function DigiscaleForm() {
   const [address, setAddress] = useState("")
   const [city, setCity] = useState("")
   const [state, setState] = useState("")
-  const [country, setCountry] = useState("")
   const [zip, setZipCode] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -46,10 +48,6 @@ export default function DigiscaleForm() {
       setError("State is required")
       return
     }
-    if (!country) {
-      setError("Country is required")
-      return
-    }
     if (!zip) {
       setError("Email is required")
       return
@@ -67,7 +65,7 @@ export default function DigiscaleForm() {
       return
     }
 
-    const values = { firstName, lastName, street: address, licenseNum: "", ssn: "", city, state, country, zip, email, password }
+    const values = { accountType: "user", firstName, lastName, street: address, licenseNum: "", ssn: "", city, state, country: "USA", zip, email, password }
     setSending(true)
     axios.post(URLS.API + 'auth/register', values).then((res) => {
       if (res.status === 201) {
@@ -86,13 +84,11 @@ export default function DigiscaleForm() {
   return (
     <div className="digiscale_form_container">
       <div className="form_box">
-        <div className="digiscale_header">
-          <button className="close_btn" style={{ color: "green", textAlign: "left" }}>
-            <Link to="/" style={{ color: "green" }}>◁</Link>
-          </button>
+        <div className="auth_logo">
+          <Link to="/self-destruct">
+            <img src={logo} alt="digiscale" />
+          </Link>
         </div>
-
-        <div className="app_logo"></div>
         <Input label="First Name" value={firstName}
           onChange={(e) => {
             setFirstName(e.target.value)
@@ -113,16 +109,17 @@ export default function DigiscaleForm() {
             setCity(e.target.value)
             setError("")
           }} />
-        <Input label="State" value={state}
+        <SelectBox label="State" value={state}
           onChange={(e) => {
             setState(e.target.value)
             setError("")
-          }} />
-        <Input label="Country" value={country}
-          onChange={(e) => {
-            setCountry(e.target.value)
-            setError("")
-          }} />
+          }}>
+          <option value="">Select State</option>
+          {STATES.map((e, i) => {
+            return <option value={e} key={i}>{e}</option>
+          })}
+        </SelectBox>
+        <Input label="Country" value="USA" disabled={true} />
         <Input label="Zip Code" value={zip}
           type="number"
           onChange={(e) => {
@@ -146,8 +143,9 @@ export default function DigiscaleForm() {
             <Link to="/self-destruct" style={{ color: "red" }}>Skip</Link>
           </Button>
           <Button disabled={sending} onClick={Submit} style={{ color: "green", marginBottom: 0 }}>{sending ? "Entering" : "Enter"}</Button>
-          <p className="text-white">Already have an account? <span><Link to="/login" className="text-primary">Login</Link></span></p>
         </div>
+        <p className="text-white" style={{ textAlign: "center" }}>Already have an account? <span><Link to="/login" className="text-primary">Login</Link></span></p>
+
       </div>
     </div>
   );

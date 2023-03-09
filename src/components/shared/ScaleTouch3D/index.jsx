@@ -221,16 +221,15 @@ export default function ScaleTouch3D({ weightListIndex }) {
         onTouchMove={onTouchMove}
         onTouchEnd={onTouchEnded}
         onTouchStart={onTouchStart}
-        onTouchForceChange={onTouchForceChange}
-      />
+        onTouchForceChange={onTouchForceChange} />
 
       <div id="weightLabelBox">
         <div></div>
-        <div id="weightLabel" onClick={tareWeight} onTouchStart={tareWeight}>
+        <div id="weightLabel" onTouchStart={tareWeight}>
           {weightLabelText}
         </div>
         <div className="tare-btn">
-          <button>TARE</button>
+          <button onClick={tareWeight}>TARE</button>
         </div>
       </div>
 

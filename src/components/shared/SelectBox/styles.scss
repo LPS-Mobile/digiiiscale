@@ -1,0 +1,55 @@
+.digiscale_input {
+  margin-bottom: 1rem;
+  width: 100%;
+
+  .inp_label {
+    width: 100%;
+    color: green;
+    text-align: center;
+    display: block;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  input,
+  .input {
+    transition: all 1s;
+    width: 100%;
+    color: white;
+    background: none;
+    border-top: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-radius: 0px;
+    text-align: center;
+    font-size: inherit;
+    font-family: inherit;
+    line-height: inherit;
+    border-image: initial;
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid white;
+    text-align: center;
+  }
+}
+
+input:focus {
+  border: none;
+  border-bottom: 1px solid #fff;
+}
+
+input:focus-visible {
+  outline: none;
+}
+
+.payment_info {
+  .digiscale_input {
+    font-size: 14px;
+    margin-bottom: 1rem;
+
+    input {
+      font-size: 14px;
+      padding-top: 0;
+    }
+  }
+}

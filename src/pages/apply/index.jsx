@@ -2,8 +2,11 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../../AppContext";
+import AppLogo from "../../components/shared/AppLogo";
 import Button from "../../components/shared/Button";
 import Input from "../../components/shared/Input";
+import SelectBox from "../../components/shared/SelectBox";
+import { STATES } from "../../constants/constArray";
 import { getAuthorization, URLS } from "../../constants/constent";
 import "./styles.scss";
 
@@ -15,7 +18,7 @@ export default function Apply() {
     const [address, setAddress] = useState("")
     const [city, setCity] = useState("")
     const [state, setState] = useState("")
-    const [country, setCountry] = useState("")
+    const [country, setCountry] = useState("USA")
     const [zip, setZipCode] = useState("")
     const [ssn, setSsn] = useState("")
     const [licenseNum, setLicenseNum] = useState("")
@@ -29,7 +32,6 @@ export default function Apply() {
             setAddress(profile.street)
             setCity(profile.city)
             setState(profile.state)
-            setCountry(profile.country)
             setZipCode(profile.zip)
             setSsn(profile.ssn)
             setLicenseNum(profile.licenseNum)
@@ -98,16 +100,13 @@ export default function Apply() {
         })
     }
 
-
     return (<section className="digiscale_confirmation">
         <div className="digiscale_header">
             <div className="btn_box">
                 <button className="close_btn" style={{ color: "green" }}>
                     <Link style={{ color: "green" }} to="/self-destruct">◁</Link></button>
             </div>
-            <div className="btn_box">
-                <button>Logo</button>
-            </div>
+            <AppLogo />
         </div>
         <div className="digiscale_confirmation_container">
             <div className="digiscale_form">
@@ -147,12 +146,17 @@ export default function Apply() {
                         setCity(e.target.value)
                         setError("")
                     }} />
-                <Input label="State" value={state}
+                <SelectBox label="State" value={state}
                     onChange={(e) => {
                         setState(e.target.value)
                         setError("")
-                    }} />
-                <Input label="Country" value={country}
+                    }}>
+                    <option value="">Select State</option>
+                    {STATES.map((e, i) => {
+                        return <option value={e} key={i}>{e}</option>
+                    })}
+                </SelectBox>
+                <Input label="Country" value={country} disabled={true}
                     onChange={(e) => {
                         setCountry(e.target.value)
                         setError("")

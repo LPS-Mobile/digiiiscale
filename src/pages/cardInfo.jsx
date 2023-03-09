@@ -1,12 +1,16 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AppContext } from "../AppContext";
+import AppLogo from "../components/shared/AppLogo";
 import Button from "../components/shared/Button";
 import Input from "../components/shared/Input";
 import { getAuthorization, URLS } from "../constants/constent";
 
 export default function CardInfo(props) {
     const navigate = useNavigate()
+    const { profile } = useContext(AppContext)
     const [name, setName] = useState("")
     const [cardNumber, setCardNumber] = useState("")
     const [cv, setCV] = useState("")
@@ -15,6 +19,12 @@ export default function CardInfo(props) {
     const [routingNumber, setRoutingNumber] = useState("")
     const [sending, setSending] = useState(false)
     const [error, setError] = useState("")
+
+    useEffect(() => {
+        if (profile && !profile.isVerified) {
+            navigate("/apply/code")
+        }
+    }, [profile])
 
     const Submit = () => {
         if (!name) {
@@ -63,14 +73,10 @@ export default function CardInfo(props) {
     return (<section className="digiscale_confirmation">
         <div className="digiscale_header">
             <Button className="close_btn" style={{ color: "green" }}><Link to="/self-destruct" style={{ color: "green" }}>◁</Link></Button>
-            <Button style={{ backgroundColor: "red" }}>
+            <Button style={{ backgroundColor: "green" }}>
                 Card Info
             </Button>
-            <Button>
-                <Link to="/self-destruct" className="logo-link">
-                    Logo
-                </Link>
-            </Button>
+            <AppLogo />
         </div>
         <div className="digiscale_confirmation_container">
 

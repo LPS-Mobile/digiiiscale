@@ -1,18 +1,27 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom"
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useContext, useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom"
 import { getDispensariesAction } from "../actions/actions";
+import { AppContext } from "../AppContext";
+import AppLogo from "../components/shared/AppLogo";
 import Button from "../components/shared/Button"
 import Loading from "../components/shared/Loading";
 import mainImage from "../public/images/blueDream.jpg"
 
 export default function DigiscalePartners() {
+    const { profile } = useContext(AppContext)
+    const navigate = useNavigate()
     const [dispensaries, setDispensaries] = useState([])
     const [loading, setLoading] = useState(true)
 
 
     useEffect(() => {
+        if (profile && !profile.isVerified) {
+            navigate("/apply/code")
+        }
         getDispensaries()
-    }, [])
+    }, [profile])
+
     const getDispensaries = () => {
         setLoading(true)
         getDispensariesAction(({ data, error }) => {
@@ -28,14 +37,10 @@ export default function DigiscalePartners() {
     return (<section className="location_container">
         <div className="digiscale_header">
             <Button className="close_btn" style={{ color: "green" }}><Link to="/self-destruct" style={{ color: "green" }}>◁</Link></Button>
-            <Button>
+            <div style={{ cursor: "pointer", color: "green", fontSize: "20px", fontWeight: 600 }}>
                 Digiscale Partners
-            </Button>
-            <Button>
-                <Link to="/self-destruct" className="logo-link">
-                    Logo
-                </Link>
-            </Button>
+            </div>
+            <AppLogo />
         </div>
 
         <div className="digiscale_pickups">

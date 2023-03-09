@@ -1,7 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Digiscale from "./components/feature/digiscale";
-import OrderProvider from "./components/feature/orderProvider";
 import Layout from "./components/layout";
 
 import "./App.scss";
@@ -26,12 +24,17 @@ import Cart from "./pages/cart";
 import PreviousPickups from "./pages/pickups/previousPickups";
 import Delivery from "./pages/delivery";
 import Pickups from "./pages/pickups/pickups";
+import Dispensaries from "./pages/dispensaries/dispensaries";
+import Products from "./pages/dispensaries/products";
+import ProductDetail from "./pages/dispensaries/productDetail";
+import Home from "./pages/home/Home";
+import AvailableDeliveries from "./pages/pickups/availableDeliveries";
+import Orders from "./pages/orders/orders";
 
 function App() {
   const [profile, setProfile] = useState(null)
-  const [cart, setCart] = useState([])
-
   const token = getToken()
+  const [cart, setCart] = useState([])
   useEffect(() => {
     if (token) {
       getProfile()
@@ -44,6 +47,7 @@ function App() {
       if (error) {
       } else {
         setProfile(data);
+        localStorage.setItem("id", data._id)
       }
     }, token);
   }
@@ -54,11 +58,14 @@ function App() {
       } else {
         setCart(data);
       }
-    }, token);
+    });
   }
-
   const value = useMemo(
-    () => ({ profile, setProfile, cart, setCart }),
+    () => ({
+      profile, setProfile, cart, setCart: (arr) => {
+        setCart(a => [...arr])
+      }
+    }),
     [profile, cart]
   );
 
@@ -68,26 +75,27 @@ function App() {
         <Routes>
           <Route path="/*" element={<PageNotFound />} />
           <Route path="/404" element={<PageNotFound />} />
-          <Route path="/" element={<Digiscale />} />
+          <Route path="/" element={<Home />} />
           <Route path="/self-destruct" element={<SelfDestruct />} />
+          <Route path="/register" element={<DigiscaleForm />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/state-of-laws" element={<StateOfLaws />} />
           <Route path="/apply" element={<Apply />} />
           <Route path="/verification" element={<Verification />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/apply/code" element={<ApplyCode />} />
           <Route path="/payment-info" element={<PaymentInfo />} />
           <Route path="/card-info" element={<CardInfo />} />
-
+          <Route path="/dispensaries" element={<Dispensaries />} />
+          <Route path="/:id/products" element={<Products />} />
+          <Route path="/:dispendaryId/product/:productId" element={<ProductDetail />} />
           <Route path="/digiscale-delivery" element={<Delivery />} />
           <Route path="/pickups" element={<Pickups />} />
           <Route path="/prev-pickups" element={<PreviousPickups />} />
-
-
-          <Route path="/register" element={<DigiscaleForm />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/order" element={<OrderProvider />} />
+          <Route path="/available-deliveries" element={<AvailableDeliveries />} />
+          <Route path="/my-orders" element={<Orders />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/digiscale-partners" element={<DigiscalePartners />} />
-          <Route path="/state-of-laws" element={<StateOfLaws />} />
         </Routes>
       </Layout>
     </Router>
