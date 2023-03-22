@@ -4,22 +4,34 @@ import { useState } from "react";
 
 import "./styles.scss";
 
-const weightLongList = [
-  { weight: "Light" },
-  { weight: "Medium" },
-  { weight: "Firm" },
-];
+// const weightLongList = [
+//   { weight: "Light" },
+//   { weight: "Medium" },
+//   { weight: "Firm" },
+// ];
 
-const weightList = [
-  { weight: "Grams" },
-  { weight: "Ounces" },
-  { weight: "Pounds" },
-  { weight: "Newtons" },
-];
+// const weightList = [
+//   { weight: "Grams" },
+//   { weight: "Ounces" },
+//   { weight: "Pounds" },
+//   { weight: "Newtons" },
+// ];
 
-export default function ScaleTouch3D({ weightListIndex }) {
+export default function ScaleTouch3D({ weightListIndex, isKG }) {
+  const [error, setError] = useState("");
   const [weightLabelText, setWeightLabelText] = useState("Loading...");
   const [selectedWeightLongIndex, setSelectedWeightLongIndex] = useState(0);
+
+  console.log(isKG)
+  useEffect(() => {
+    var iOS = ['iPad', 'iPhone', 'iPod', 'iPhone Simulator'].indexOf(navigator.platform) >= 0;
+    if (!iOS) {
+      setError("Sorry, but this application requires iOS.");
+    } else {
+
+    }
+    console.log(">>>>")
+  }, [])
 
   var tareForce = 0;
   function tareWeight() {
@@ -31,7 +43,8 @@ export default function ScaleTouch3D({ weightListIndex }) {
   var selected3DTSettingIndex = getStoredSensitivity();
 
   var weightUnitIndex = getStoredWeightUnitIndex();
-  var weightUnitNames = ["g", "kg"];
+
+  var weightUnitNames = ['g', 'oz', 'lb', 'N']; //["g", "kg"];
   var weightConvertGramsRatios /*Unit*/ = [
     1.0, 0.03527396, 0.00220462, 0.00980665,
   ];
@@ -69,10 +82,10 @@ export default function ScaleTouch3D({ weightListIndex }) {
   function updateForce() {
     var raw3dtForce = getCurrent3DTForce();
     var current3dtForce = raw3dtForce - tareForce;
-    var isMaxForce =
-      current3dtForce === touchCount - tareForce && touchCount !== 0;
+    var isMaxForce = current3dtForce === touchCount - tareForce && touchCount !== 0;
     var currentGramsForce = getForceInGrams(current3dtForce);
     var displayedWeight = getDisplayedWeight(currentGramsForce);
+    console.log("displayedWeight", displayedWeight, currentGramsForce)
 
     if (
       (raw3dtForce === 0 || isNaN(raw3dtForce)) &&
@@ -105,26 +118,32 @@ export default function ScaleTouch3D({ weightListIndex }) {
 
     var finalWeight = grams * conversionRatio;
 
-    var inaccuracyRatio = Math.round(
-      Math.min(Math.pow(2, Math.round(Math.floor(Math.abs(grams) / 100))), 4)
-    );
+    var inaccuracyRatio = Math.round(Math.min(Math.pow(2, Math.round(Math.floor(Math.abs(grams) / 100))), 4));
 
     var decimalPointPrecision = 2;
-
-    if (weightUnitNames[weightUnitIndex] === "g") {
-      finalWeight =
-        Math.round(finalWeight / 5.0 / inaccuracyRatio) * 5.0 * inaccuracyRatio;
+    console.log(finalWeight, grams, inaccuracyRatio, conversionRatio, weightUnitIndex)
+    if (!isKG) {
+      finalWeight = Math.round(finalWeight / 5.0 / inaccuracyRatio) * 5.0 * inaccuracyRatio;
       decimalPointPrecision = 0;
-    } else if (weightUnitNames[weightUnitIndex] === "kg") {
-      finalWeight =
-        (Math.round((finalWeight * 5.0) / inaccuracyRatio) / 5.0) *
-        inaccuracyRatio;
-      decimalPointPrecision = Math.max(0, 2 - inaccuracyRatio);
+    } else { //if (weightUnitNames[weightUnitIndex] === "kg") {
+      finalWeight = finalWeight / 1000
+      decimalPointPrecision = 3;
+
+      // finalWeight = (Math.round((finalWeight * 5.0) / inaccuracyRatio) / 5.0) * inaccuracyRatio;
+      // decimalPointPrecision = Math.max(0, 2 - inaccuracyRatio);
     }
 
+
+    // if (weightUnitNames[weightUnitIndex] === "g") {
+    //   finalWeight = Math.round(finalWeight / 5.0 / inaccuracyRatio) * 5.0 * inaccuracyRatio;
+    //   decimalPointPrecision = 0;
+    // } else if (weightUnitNames[weightUnitIndex] === "kg") {
+    //   finalWeight = (Math.round((finalWeight * 5.0) / inaccuracyRatio) / 5.0) * inaccuracyRatio;
+    //   decimalPointPrecision = Math.max(0, 2 - inaccuracyRatio);
+    // }
+
     return (
-      finalWeight.toFixed(decimalPointPrecision) +
-      weightUnitNames[weightUnitIndex]
+      finalWeight.toFixed(decimalPointPrecision) + (isKG ? " kg" : " gm")//   weightUnitNames[weightUnitIndex]
     );
   }
 
@@ -164,7 +183,7 @@ export default function ScaleTouch3D({ weightListIndex }) {
 
   //Storage and retrieval
   function getStoredWeightUnitIndex() {
-    var data = getCookie("SelectedWeightUnitIndex");
+    var data = ""//getCookie("SelectedWeightUnitIndex");
     if (data !== "") {
       return Number(data);
     } else {
@@ -173,7 +192,7 @@ export default function ScaleTouch3D({ weightListIndex }) {
   }
 
   function getStoredSensitivity() {
-    var data = getCookie("Selected3DTSensitivity");
+    var data = ""//getCookie("Selected3DTSensitivity");
     if (data !== "") {
       return Number(data);
     } else {
@@ -181,29 +200,31 @@ export default function ScaleTouch3D({ weightListIndex }) {
     }
   }
 
-  function Sensitivity3dSelector(e) {
-    const value = e.target.value;
-    selected3DTSettingIndex = 0;
-    for (let i = 0; i < weightLongList.length; i++) {
-      if (weightLongList[i].weight === value) {
-        selected3DTSettingIndex = i;
-        setSelectedWeightLongIndex(i);
-      }
-    }
-    setCookie("Selected3DTSensitivity", selected3DTSettingIndex, 365);
-    updateForce();
-  }
+  // function Sensitivity3dSelector(e) {
+  //   const value = e.target.value;
+  //   selected3DTSettingIndex = 0;
+  //   for (let i = 0; i < weightLongList.length; i++) {
+  //     if (weightLongList[i].weight === value) {
+  //       selected3DTSettingIndex = i;
+  //       setSelectedWeightLongIndex(i);
+  //     }
+  //   }
+  //   setCookie("Selected3DTSensitivity", selected3DTSettingIndex, 365);
+  //   updateForce();
+  // }
 
+  console.log(weightUnitIndex)
   function WeightUnitSelector() {
     weightUnitIndex = weightListIndex;
-    setCookie("SelectedWeightUnitIndex", weightUnitIndex, 365);
+    // setCookie("SelectedWeightUnitIndex", weightUnitIndex, 365);
     updateForce();
   }
 
   useEffect(() => {
     WeightUnitSelector();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [weightListIndex]);
+  }, [weightListIndex, isKG]);
+
   console.log(selectedWeightLongIndex)
   return (
     <div id="view">
@@ -225,15 +246,15 @@ export default function ScaleTouch3D({ weightListIndex }) {
 
       <div id="weightLabelBox">
         <div></div>
-        <div id="weightLabel" onTouchStart={tareWeight}>
+        <div id="weightLabel">
           {weightLabelText}
         </div>
-        <div className="tare-btn">
-          <button onClick={tareWeight}>TARE</button>
-        </div>
+        <div className="tare-btn" onClick={tareWeight} onTouchStart={tareWeight}>TARE</div>
       </div>
 
-      <div id="controls">
+      {error && <div style={{ textAlign: "center", color: "red" }}>{error}</div>}
+
+      {/* <div id="controls">
         <div className="settingLabel">Weight Unit</div>
         <select
           id="WeightUnitSelector"
@@ -259,7 +280,8 @@ export default function ScaleTouch3D({ weightListIndex }) {
             </option>
           ))}
         </select>
-      </div>
+      </div> */}
+
       <div className="empty-boxes">
         <div className="empty-box">Ad Space</div>
         <div className="empty-box">Ad Space</div>

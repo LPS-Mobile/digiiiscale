@@ -10,7 +10,7 @@ import { getAuthorization, getToken, logout, URLS } from "../../constants/conste
 import "./styles.scss";
 
 export default function SelfDestruct() {
-  const [kgGramsIndex, setKgGramsIndex] = useState(1);
+  const [kgGramsIndex, setKgGramsIndex] = useState(0);
   const { profile } = useContext(AppContext)
 
   const handleSetKgGrams = (e) => {
@@ -93,7 +93,7 @@ export default function SelfDestruct() {
         <AppLogo link="/settings" />
       </div>
       <div className="kg_grams_box">
-        <ScaleTouch3D weightListIndex={kgGramsIndex} />
+        <ScaleTouch3D isKG={kgGramsIndex === 1} weightListIndex={0} />
       </div>
     </div>
   );

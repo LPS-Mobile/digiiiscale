@@ -62,20 +62,19 @@
 
 .tare-btn {
   text-align: right;
-  padding-right: 25px;
+  margin-right: 25px;
+  background-color: #fff;
+  height: 42px;
+  width: 42px;
+  margin-left: auto;
+  border-radius: 1000px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  font-size: 13px;
+  color: green;
 
-  button {
-    height: 42px;
-    width: 42px;
-    margin-left: auto;
-    border-radius: 1000px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    font-size: 13px;
-    color: green;
-  }
 }
 
 
